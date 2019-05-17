@@ -87,6 +87,13 @@ public class RNIconActionSheetModule extends ReactContextBaseJavaModule {
                     }
                 }
             }
+		itemView.setOnClickListener(new OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+		callback.invoke(index);
+        }
+    });
 
             sheetView.addView(itemView);
         }
