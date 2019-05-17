@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.BottomSheetDialog;
 import android.view.View;
+import android.view.View.OnClickListener;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -87,13 +89,9 @@ public class RNIconActionSheetModule extends ReactContextBaseJavaModule {
                     }
                 }
             }
-		itemView.setOnClickListener(new OnClickListener() {
 
-        @Override
-        public void onClick(View view) {
-		callback.invoke(index);
-        }
-    });
+
+		itemView.setOnClickListener(new MyLovelyOnClickListener(index,callback,bottomSheetDialog));
 
             sheetView.addView(itemView);
         }
@@ -144,3 +142,23 @@ public class RNIconActionSheetModule extends ReactContextBaseJavaModule {
         return new BitmapDrawable(getReactApplicationContext().getResources(), bitmap);
     }
 }
+ class MyLovelyOnClickListener implements OnClickListener
+   {
+
+     int myLovelyVariable;
+     Callback callback;
+     BottomSheetDialog bottomSheetDialog;
+     public MyLovelyOnClickListener(int myLovelyVariable,Callback callback,BottomSheetDialog bottomSheetDialog) {
+          this.myLovelyVariable = myLovelyVariable;
+          this.callback = callback;
+          this.bottomSheetDialog=bottomSheetDialog;
+     }
+
+     @Override
+     public void onClick(View v)
+     {
+        callback.invoke(myLovelyVariable);
+        bottomSheetDialog.dismiss();
+     }
+
+  };
